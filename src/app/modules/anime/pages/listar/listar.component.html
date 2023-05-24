@@ -1,0 +1,57 @@
+<!-- <div class="d-flex p-2 m-5"></div>
+
+<div class="container">
+  <hr />
+
+
+
+  <app-buscar (buscar)="onScroll(a=$event)"></app-buscar>
+  <div class="lista"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="100"
+    (scrolled)="onScroll(a)">
+
+    <div class="cards">
+      <ng-container *ngFor=" let x of resultados">
+        <app-card [card]="x"></app-card>
+      </ng-container>
+    </div>
+    <hr>
+  </div>
+</div>
+ -->
+
+<div class="container-fluid">
+  <app-page-title title="Anime" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [formControl]="cardText">
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+
+          <!-- Contenido del Scroll data -->
+          <div class="lista" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="100"
+            (scrolled)="onScroll()">
+            <div class="cards">
+              <ng-container *ngFor="let x of cards">
+                <app-card [card]="x"></app-card>
+              </ng-container>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
