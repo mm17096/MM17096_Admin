@@ -32,7 +32,8 @@ export class NuevoComponent implements OnInit {
     return this.fb.group({
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
-      email: ['', [Validators.required]]
+      email: ['', [Validators.required]],
+      puntaje: ['', [Validators.required]]
     });
   }
 
@@ -88,6 +89,7 @@ export class NuevoComponent implements OnInit {
     this.empleadoOd.nombre = this.formBuilder.controls['nombre'].value;
     this.empleadoOd.apellido = this.formBuilder.controls['apellido'].value;
     this.empleadoOd.email = this.formBuilder.controls['email'].value;
+    this.empleadoOd.puntaje = this.formBuilder.controls['puntaje'].value;
     
     this.empleadoService.EditarEmpleado(this.empleadoOd).subscribe((resp: any) => {
       if (resp) {

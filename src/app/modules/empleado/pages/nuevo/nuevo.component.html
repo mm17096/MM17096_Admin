@@ -8,7 +8,7 @@
 </div> 
 
 <div *ngIf="leyenda === titulo">
-    <button type="button" class="btn btn-primary" (click)="openModal(content)">{{titulo}}</button>
+    <button type="button" class="btn btn-primary" (click)="openModal(content)"><i class="bx bx-edit-alt"></i> {{titulo}}</button>
 </div>
 
 <!-- Modal -->
@@ -44,6 +44,18 @@
                                     required.</span>
                             </div> -->
                         </div>
+
+                        <div class="mb-3">
+                            <label class="control-label">Puntaje</label>
+                            <input class="form-control" placeholder="Enter puntaje" type="number"
+                                name="puntaje" formControlName="puntaje" [ngModel]="empleadoOd!=null ? empleadoOd.puntaje : ''"/>
+                       <!--      <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                                <span *ngIf="form.email.errors.required">Email is required.</span>
+                                <span *ngIf="form.email.errors.pattern">This value should be a valid
+                                    email.</span>
+                            </div> -->
+                        </div>
+
                         <div class="mb-3">
                             <label class="control-label">Email</label>
                             <input class="form-control" placeholder="Enter email" type="text"

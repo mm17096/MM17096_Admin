@@ -11,6 +11,7 @@
           <th class="align-middle">ID</th>
           <th class="align-middle">Nombre</th>
           <th class="align-middle">Apellido</th>
+          <th class="align-middle">Puntaje</th>
           <th class="align-middle">Email</th>
           <th class="align-middle">Acciones</th>
         </tr>
@@ -28,10 +29,11 @@
           </td>
           <td>{{data.nombre}}</td>
           <td>{{data.apellido}}</td>
+          <td>{{data.puntaje}}</td>
           <td>{{data.email}}</td>
           <td>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" style="border: 0;" (click)="Eliminar(data.id)">Eliminar</button>
+            <button type="button" class="btn btn-danger" style="border: 0;" (click)="Eliminar(data.id)"><i class="bx bx-trash"></i>Eliminar</button>
             <button style="border: 0; background-color: transparent;"><app-nuevo [leyenda]="'Editar'" [titulo]="'Editar'" [empleadoOd]="data"></app-nuevo></button>
            <!--  <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="Eliminar(data.id)">Editar</button> -->
           </td>

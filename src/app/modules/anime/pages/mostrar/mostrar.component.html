@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <app-page-title title="Anime" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <div class="row">
-        <div class="col-12">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
@@ -21,5 +21,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Aqui la grafica A -->
+                    <app-grafica-a></app-grafica-a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <app-grafica-a [data]="dataGrafica" title="Anime" [labels]="label" [colors]="color"></app-grafica-a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Aqui la grafica A -->
+                    <app-grafica-b></app-grafica-b>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
