@@ -29,7 +29,7 @@ export class Register2Component implements OnInit {
     document.body.classList.add('auth-body-bg')
 
     this.signupForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      nombre: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });

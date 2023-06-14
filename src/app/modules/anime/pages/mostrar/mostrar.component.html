@@ -41,7 +41,7 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <app-grafica-a [data]="dataGrafica" title="Anime" [labels]="label" [colors]="color"></app-grafica-a>
+                    <app-grafica-a [data]="dataGrafica" title="Grafico de Dona" [labels]="labels" [colors]="colores"></app-grafica-a>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
             <div class="card">
                 <div class="card-body">
 
-                    <!-- Aqui la grafica A -->
-                    <app-grafica-b></app-grafica-b>
+                    <!-- Aqui la grafica B -->
+                    <app-grafica-b [data]="dataGrafica" [data]="dataApex"></app-grafica-b>
                 </div>
             </div>
         </div>

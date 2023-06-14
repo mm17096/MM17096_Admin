@@ -100,8 +100,8 @@
                                             [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control" id="useremail"
                                                 placeholder="Enter email">
                                                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.email.errors.required">Email is required</div>
-                                                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                                    <div *ngIf="f.email.errors.required">Requiere correo</div>
+                                                    <div *ngIf="f.email.errors.email">Formato de correo no correcto</div>
                                                   </div>
                                         </div>
 

@@ -1,0 +1,189 @@
+<div class="container-fluid">
+  <!--   <app-page-title title="Advanced Table" [breadcrumbItems]="breadCrumbItems"></app-page-title> -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Biblioteca</h4>
+          <p class="card-sub-title">Detalle</p>
+          <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="tickets-table_length">
+                <label class="d-inline-flex align-items-center">Mostrar
+                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                    class="form-control form-control-sm mx-2" [(ngModel)]="size" (ngModelChange)="setSize($event)">
+                    <option [ngValue]="10">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  registros</label>
+              </div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end">
+                <label class="d-inline-flex align-items-center">Search:
+                  <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                    aria-controls="tickets-table" /></label>
+              </div>
+            </div>
+            <!-- End search -->
+          </div>
+          <!-- Table -->
+          <div class="table-responsive">
+            <table id="basic-datatable"
+              class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>ID</th>
+                  <th>Biblioteca</th>
+                  <th>Office</th>>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let biblioteca of bibliotecas; let ix = index">
+                <tr>
+                  <td style="align-items: center;">
+                    <input type="radio" class="form-check-input p-2" name="formRadioColor2" id="formRadioColor2"
+                      (click)="cambiarAotraBiblioteca(biblioteca)">
+                    <a class="expand-row m-1" (click)="mostrarLibros(biblioteca, ix)"> + </a>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="biblioteca.id"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="biblioteca.nombre"> </ngb-highlight>
+                  </td>
+                  <td>
+                    <div ngbDropdown placement="bottom-left">
+                      <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                        aria-expanded="true"></i>
+                      <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-plus"></i>Add</a>
+                        <a class="dropdown-item" href="javascript: void(0);"><i
+                            class="mdi mdi-account-edit"></i>Edit</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="!hideme[ix]" class="sub-table no-bg">
+                  <td align="center"></td>
+                  <td colspan="15" class="p-0">
+                    <table class="table mb-0 table-striped">
+                      <thead class="bg-dark text-white">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th>Nombre</th>
+                          <th>
+                            <a style="cursor: pointer; padding: 20px;">
+                              <i class="mdi mdi-plus" (click)="AgregarLibroModal(content, biblioteca, ix)">Nuevo</i></a>
+
+                            <a style="cursor: pointer" (click)="trasladarBiblioteca(biblioteca, ix)">
+                              <i class="mdi mdi-auto-fix"></i>Cambiar</a>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="bodyLibros">
+                        <!-- *ngFor="let table of tables$ | async; let i = index"  -->
+                        <tr *ngFor="let libro of libros[ix]; let i = index">
+                          <td>
+                            <input type="checkbox" class="form-check-input" id="{{ libro.id }}" [checked]="checked" />
+                          </td>
+                          <td>{{i+1}}</td>
+                          <td>{{libro.nombre}}</td>
+                          <td>
+                            <div ngbDropdown placement="bottom-left">
+                              <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                                aria-expanded="true"></i>
+                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                <a class="dropdown-item" (click)="EditarLibroModal(content, biblioteca, libro, ix)"><i
+                                    class="bx bx-edit-alt"></i>
+                                  Editar</a>
+                                <a class="dropdown-item" (click)="EliminarLibro(libro, biblioteca, ix)"><i
+                                    class="bx bx-trash"></i> Borrar</a>
+                              </div>
+                            </div>
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End table -->
+          <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                Mostrando {{ page + 1 }} de {{ size }} un total de
+                {{ totalElement }} registros
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+              <div class="text-md-right float-md-end pagination-rounded justify-content-end mb-2 peges">
+                <i class="fas fa-angle-double-left m-2" (click)="retroceder()"></i>
+                <span *ngFor="let p of totalPages; let i = index">
+                  <a class="pages" (click)="setPage(i)" [ngClass]="{ 'text-info': i === page }">
+                    {{ i + 1 }}
+                  </a>
+                </span>
+                <i class="fas fa-angle-docule-right m-2" (click)="adelante()">
+                </i>
+              </div>
+              <!-- End Pagination -->
+            </div>
+          </div>
+        </div>
+
+        <!--  <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Editable Table</h4>
+          <p class="card-sub-title">Example of editable table.</p>
+          <ng2-smart-table [settings]="settings" [source]="editableTable"></ng2-smart-table>
+        </div>
+      </div>  Es otra tabla-->
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Libro</h5>
+      <button type="button" class="close" aria-hidden="true" (click)="modal.dismiss('Cross click')">
+        ×
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formLibro" (ngSubmit)="GuardarLibro()">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Nombre</label>
+              <input type="text" class="form-control" placeholder="Ingrese un Título" formControlName="nombre" />
+              <div class="invalid-feedback">
+                <span *ngIf="formLibro.get('nombre')?.errors?.['required']">
+                  Ingrese un Título
+                </span>
+                <span *ngIf="formLibro.get('nombre')?.errors?.['pattern']">
+                  Sólo letras
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Guardar
+        </button>
+      </form>
+    </div>
+  </ng-template>
+</div>

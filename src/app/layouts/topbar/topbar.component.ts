@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UsuarioService } from 'src/app/account/services/usuario.service';
+import { Usuario } from 'src/app/account/models/usuario.models';
 
 @Component({
   selector: 'app-topbar',
@@ -24,12 +26,14 @@ export class TopbarComponent implements OnInit {
   flagvalue;
   countryName;
   valueset;
+  public perfil: Usuario;
 
   constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,
               private authFackservice: AuthfakeauthenticationService,
               public languageService: LanguageService,
               public translate: TranslateService,
-              public _cookiesService: CookieService) {
+              public _cookiesService: CookieService,
+              private usuarioService: UsuarioService) {
   }
 
   listLang = [
@@ -85,12 +89,13 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    if (environment.defaultauth === 'firebase') {
+  /*   if (environment.defaultauth === 'firebase') {
       this.authService.logout();
     } else {
       this.authFackservice.logout();
     }
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/account/login']); */
+    this.usuarioService.logout();
   }
 
   /**

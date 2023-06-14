@@ -1,0 +1,58 @@
+<div *ngIf="leyenda !== titulo">
+    <div class="text-sm-end">
+        <button type="button" class="btn btn-success btn-rounded mb-2 mr-2" (click)="openModal(content)">
+            <i class="fas fa-user-plus"></i> {{titulo}}
+        </button>
+    </div>
+</div>
+
+<div *ngIf="leyenda === titulo">
+    <button type="button" class="btn btn-primary" (click)="openModal(content)"><i class="bx bx-edit-alt"></i>
+        {{titulo}}</button>
+</div>
+
+<!-- Modal -->
+
+<div class="modal modal-fullscreen-xl-down fade" id="modalEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <ng-template #content role="document" let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">{{leyenda}} Libro</h5>
+            <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+
+            <form (ngSubmit)="guardar()" [formGroup]="formBuilder">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="control-label">Nombre</label>
+                            <input class="form-control" placeholder="Enter Username" type="text" name="nombre"
+                                formControlName="nombre" [ngModel]="libroOd!=null ? libroOd.nombre : ''" />
+                            <!--   <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+                                <span *ngIf="form.name.errors.required">Username is required.</span>
+                            </div> -->
+                        </div>
+
+                        <div class="form-group">
+                            <label for="biblioteca">Biblioteca</label>
+                            <select id="biblioteca" name="biblioteca" class="form-control" formControlName="biblioteca" [ngModel]="libroOd!=null ? libroOd.biblioteca : ''">
+                                <option value="">Seleccione</option>
+                                <option *ngFor="let aux of listBlioteca; let i = index" value="{{aux.id}}" >
+                                    {{aux.nombre}}
+                                </option>
+                            </select>
+                        </div>
+
+                        
+                        <br /> <!-- pequenio espacio -->
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success" id="btn-save-event">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </ng-template>
+</div>
+<!-- Modal -->

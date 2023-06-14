@@ -19,6 +19,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { GraficaAComponent } from './grafica-a/grafica-a.component';
 import { GraficaBComponent } from './grafica-b/grafica-b.component';
 import { ChartsModule } from 'ng2-charts';
+import { ApexComponent } from 'src/app/pages/chart/apex/apex.component';
+import * as ApexCharts from 'apexcharts';
 
 
 @NgModule({

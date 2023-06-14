@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IAnime } from '../../interface/anime';
 import { AnimeService } from '../../service/anime.service';
+import { ChartOptions } from '../../grafica-b/chartType.interface';
 
 @Component({
   selector: 'app-mostrar',
@@ -14,9 +15,27 @@ export class MostrarComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: string = '';
 
-  label: string[] = [];
+  labels: string[] = [];
   dataGrafica = [];
-  color = [{ backgraundColor: []}];
+  colores = [{ backgroundColor: [] }];
+  dataApex: Partial<ChartOptions> = {
+    series: [
+      {
+        name: 'Series',
+        data: []
+      }
+    ],
+    chart: {
+      height: '350',
+      type: 'bar'
+    },
+    title: {
+      text: ""
+    },
+    xaxis: {
+      categories: []
+    }
+  };
 
   constructor(private animeService: AnimeService) { }
 
@@ -33,7 +52,7 @@ export class MostrarComponent implements OnInit {
     })
  
   }
-
+  
   graficar(){
     let grupos = {};
     //agrupar por tippo
@@ -47,15 +66,27 @@ export class MostrarComponent implements OnInit {
     console.log(grupos);
 
     let keyColor = 'backgroundColor';
+
+    let keySeries = 'series';
+    let data = 'data';
+    let xaxis = 'xaxis';
+    let categories = 'categories';
+
     for (const key in grupos) {
-      this.label.push(key);
+      this.labels.push(key);
       this.dataGrafica.push(grupos[key].length);
-      this.color[0][keyColor].push(this.colorHex());
+      this.colores[0][keyColor].push(this.colorHex());
+
+      this.dataApex[keySeries][0][data].push(grupos[key].length);
+      this.dataApex[xaxis][categories].push(key);
     }
 
+    this.dataApex.title.text = "Grafica de Anime Barras";
+    console.log("este",this.dataApex);
+
     console.log(this.dataGrafica);
-    console.log(this.label);
-    console.log(this.color);
+    console.log(this.labels);
+    console.log(this.colores);
   }
 
   generarLetra(){
@@ -69,7 +100,7 @@ export class MostrarComponent implements OnInit {
     for (let i = 0; i < 6 ;i++){
      color = color + this.generarLetra();
     }
-    return "#" + color;
+    return "#"+color;
   }
 
 }

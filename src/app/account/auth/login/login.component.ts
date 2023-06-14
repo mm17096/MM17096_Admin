@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import { UsuarioService } from '../../services/usuario.service';
+import { IS_CLAVE, IS_EMAIL } from '../../constans/const';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -19,21 +22,32 @@ import { environment } from '../../../../environments/environment';
  * Login component
  */
 export class LoginComponent implements OnInit {
-
+  storage: Storage = window.localStorage;
   loginForm: FormGroup;
-  submitted = false;
+  submitted: boolean = false;
   error = '';
   returnUrl: string;
+
+  /* Paera el pass */
+  public showPassword: boolean = false;
+  public password: string = '';
+
 
   // set the currenr year
   year: number = new Date().getFullYear();
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private authFackservice: AuthfakeauthenticationService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private authFackservice: AuthfakeauthenticationService,
+    private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this.iniciarFormulario();
+    /* this.loginForm = this.formBuilder.group({
       email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
       password: ['123456', [Validators.required]],
     });
@@ -42,7 +56,40 @@ export class LoginComponent implements OnInit {
     // this.authenticationService.logout();
     // get return url from route parameters or default to '/'
     // tslint:disable-next-line: no-string-literal
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; */
+  }
+
+  private iniciarFormulario() {
+    return this.formBuilder.group({
+      email: [localStorage.getItem('email') || '', [Validators.required, Validators.pattern(IS_EMAIL)]],
+      password: ['', [Validators.required, Validators.pattern(IS_CLAVE), Validators.minLength(8)]],
+      remember: [false]
+    });
+  }
+
+
+  login() {
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.usuarioService.login(this.loginForm.value).subscribe(
+      (resp) => {
+        if (this.loginForm.get('remember')?.value) {
+          this.storage.setItem('email', this.loginForm.get('email')?.value);
+        } else {
+          this.storage.removeItem('email');
+        }
+        this.router.navigate(['/dashboard']);
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err,
+        });
+      }
+    );
   }
 
   // convenience getter for easy access to form fields
@@ -78,4 +125,10 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 }

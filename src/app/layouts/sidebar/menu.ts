@@ -856,5 +856,24 @@ export const MENU: MenuItem[] = [
                 parent: 140
             }
         ]
+    },
+    {
+        id: 150,
+        label: 'Biblioteca',
+        icon: 'bx bx-food-menu',
+        subItems: [
+            {
+                id: 151,
+                label: 'Libros',
+                link: '/libros/mostrar',
+                parent: 150
+            },
+            {
+                id: 152,
+                label: 'Biblioteca',
+                link: '/biblioteca/mostrar',
+                parent: 150
+            }
+        ]
     }
 ];

@@ -10,5 +10,6 @@ export const environment = {
     messagingSenderId: '',
     appId: '',
     measurementId: ''
-  }
+  },
+  baseUrl: 'https://nodejsclusters-130234-0.cloudclusters.net/api'
 };

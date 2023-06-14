@@ -9,7 +9,7 @@ import { Color, Label, MultiDataSet } from 'ng2-charts';
 export class GraficaAComponent implements OnInit {
 
   @Input() title: string = "sin titulo";
-  @Input('labels') donaLabels: Label[]=['Label1', 'Label2', 'Label3'];
+  @Input('labels') donaLabels: Label[]=['Label1', 'Label2'];
   @Input('data') donaData: MultiDataSet = [[300, 4150]];
   @Input('colors') colors: Color[] = [{backgroundColor: ['#6857E6','#2354E6']}];
 
