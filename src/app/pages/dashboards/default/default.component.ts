@@ -5,6 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from '../../../core/services/event.service';
 
 import { ConfigService } from '../../../core/services/config.service';
+import { UsuarioService } from 'src/app/account/services/usuario.service';
+import { Usuario } from 'src/app/account/models/usuario.models';
 
 @Component({
   selector: 'app-default',
@@ -21,13 +23,15 @@ export class DefaultComponent implements OnInit {
   statData: Array<[]>;
 
   isActive: string;
+  public perfil: Usuario;
 
   @ViewChild('content') content;
-  constructor(private modalService: NgbModal, private configService: ConfigService, private eventService: EventService) {
+  constructor(private modalService: NgbModal, private configService: ConfigService, private eventService: EventService, private usuarioService: UsuarioService) {
   }
 
   ngOnInit() {
 
+    this.perfil = this.usuarioService.usuario;
     /**
      * horizontal-vertical layput set
      */

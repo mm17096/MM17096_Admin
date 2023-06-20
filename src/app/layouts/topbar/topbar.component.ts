@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { AuthenticationService } from '../../core/services/auth.service';
@@ -9,6 +9,13 @@ import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UsuarioService } from 'src/app/account/services/usuario.service';
 import { Usuario } from 'src/app/account/models/usuario.models';
+
+@Pipe({name: 'slice'})
+export class SlicePipe implements PipeTransform {
+  transform(value: string, start: number, end: number): string {
+    return value.slice(start, end) + '...';
+  }
+}
 
 @Component({
   selector: 'app-topbar',
@@ -61,6 +68,9 @@ export class TopbarComponent implements OnInit {
     } else {
       this.flagvalue = val.map(element => element.flag);
     }
+
+    this.perfil = this.usuarioService.usuario;
+    console.log(this.perfil);
   }
 
   setLanguage(text: string, lang: string, flag: string) {

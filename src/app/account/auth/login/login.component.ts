@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit {
     private usuarioService: UsuarioService) { }
 
   ngOnInit() {
+
+    /*  let token = localStorage.getItem('token');
+    this.router.navigate(token ? ['/dashboard'] : []);
+    this.loginForm = token ? null : this.iniciarFormulario(); */
+
     this.loginForm = this.iniciarFormulario();
     /* this.loginForm = this.formBuilder.group({
       email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
@@ -73,6 +78,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.startCountdown();
+
     this.usuarioService.login(this.loginForm.value).subscribe(
       (resp) => {
         if (this.loginForm.get('remember')?.value) {
@@ -91,6 +99,37 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+
+  startCountdown() {
+    let timerInterval;
+    let count = 10;
+
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Espere un momento...',
+      timer: count * 200,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector('b');
+
+        if (b) {
+          timerInterval = setInterval(() => {
+            b.textContent = (count--).toString();
+          }, 1000);
+        }
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('Countdown completed');
+      }
+    });
+  }
+
 
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }

@@ -21,6 +21,7 @@ import { GraficaBComponent } from './grafica-b/grafica-b.component';
 import { ChartsModule } from 'ng2-charts';
 import { ApexComponent } from 'src/app/pages/chart/apex/apex.component';
 import * as ApexCharts from 'apexcharts';
+//import { AdminGuard } from 'src/app/core/guards/auth.guard';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import * as ApexCharts from 'apexcharts';
     ChartsModule, //para graficas
   ],
   providers: [
+   // AdminGuard,
     AnimeService
   ]
 })

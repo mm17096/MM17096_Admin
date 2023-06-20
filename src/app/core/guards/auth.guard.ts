@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
+
 export class AuthGuard implements CanActivate, CanLoad {
     constructor(
         private router: Router,
@@ -23,7 +24,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         return this.usuarioService.validarToken().pipe(
             tap(isAuth => {
                 if (!isAuth) {
-                   this.router.navigateByUrl('/account/login');
+                    this.router.navigateByUrl('/account/login');
                 }
             })
         );
@@ -33,7 +34,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         return this.usuarioService.validarToken().pipe(
             tap(isAuth => {
                 if (!isAuth) {
-                   this.router.navigateByUrl('/account/login');
+                    this.router.navigateByUrl('/account/login');
                 }
             })
         );
